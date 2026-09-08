@@ -27,6 +27,11 @@ const router = createRouter({
       name: 'signup-complete',
       component: () => import('@/views/signup/SignupCompleteView.vue'),
     },
+    {
+      path: '/mydata/connect',
+      name: 'mydata-connect',
+      component: () => import('@/views/mydata/MyDataConnectView.vue'),
+    },
   ],
 })
 

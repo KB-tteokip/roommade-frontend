@@ -5,6 +5,7 @@ import { ZodError } from 'zod'
 
 import { login } from '@/api/user'
 import roommadeHouseLogo from '@/assets/roommade-house-logo.png'
+import { hasCompletedMyDataOnboarding, rememberCurrentUser } from '@/utils/mydataOnboarding'
 
 const router = useRouter()
 
@@ -34,7 +35,12 @@ async function submitLogin() {
 
   try {
     await login({ email: email.value, password: password.value })
-    await router.push({ name: 'home' })
+    rememberCurrentUser(email.value)
+
+    const nextRoute = hasCompletedMyDataOnboarding(email.value)
+      ? { name: 'home' }
+      : { name: 'mydata-connect' }
+    await router.push(nextRoute)
   } catch (error) {
     errorMessage.value = getErrorMessage(error)
   } finally {
@@ -42,8 +48,8 @@ async function submitLogin() {
   }
 }
 
-function showSignupNotice() {
-  errorMessage.value = '회원가입 화면은 준비 중입니다.'
+function goToSignup() {
+  router.push({ name: 'signup-info' })
 }
 </script>
 
@@ -156,7 +162,7 @@ function showSignupNotice() {
         <button
           type="button"
           class="flex h-20 w-full items-center justify-between gap-3 rounded-[1.8rem] border-2 border-[#e5e7eb] bg-white px-6 text-base text-[#7d8493] transition hover:border-[#c6a5ff]"
-          @click="showSignupNotice"
+          @click="goToSignup"
         >
           <span class="whitespace-nowrap">룸메이드가 처음이신가요?</span>
           <span class="shrink-0 whitespace-nowrap font-bold text-[#7c3aed]"

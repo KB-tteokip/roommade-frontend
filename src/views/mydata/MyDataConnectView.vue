@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { completeMyDataOnboardingForCurrentUser } from '@/utils/mydataOnboarding'
 
 const router = useRouter()
 const step = ref('intro')
@@ -60,11 +61,12 @@ function toggleAccount(id) {
 
 function completeSelection() {
   if (!canComplete.value) return
+  completeMyDataOnboardingForCurrentUser()
   step.value = 'complete'
 }
 
 function goHome() {
-  router.push('/')
+  router.push('/home')
 }
 </script>
 

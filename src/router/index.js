@@ -18,6 +18,32 @@ const router = createRouter({
       component: () => import('@/views/HomeView.vue'),
     },
     {
+      path: '/readiness',
+      name: 'readiness',
+      component: () => import('@/views/NotReadyView.vue'),
+    },
+    {
+      path: '/house-comparisons',
+      name: 'house-comparison',
+      component: () => import('@/views/house/HouseComparisonView.vue'),
+    },
+    {
+      path: '/house-comparisons/houses/:houseType/register',
+      name: 'house-register',
+      component: () => import('@/views/house/HouseRegisterView.vue'),
+      props: true,
+    },
+    {
+      path: '/house-comparisons/houses/:houseType/edit',
+      name: 'house-edit',
+      component: () => import('@/views/house/HouseEditView.vue'),
+    },
+    {
+      path: '/benefits',
+      name: 'benefit',
+      component: () => import('@/views/NotReadyView.vue'),
+    },
+    {
       path: '/signup',
       redirect: '/signup/info',
     },
